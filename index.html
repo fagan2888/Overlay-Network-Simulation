@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset='utf-8'></meta>
+    <title>Overlay Network Graph</title>
+    <link href='style.css' rel='stylesheet' />
+    <script src='node_modules/cytoscape/dist/cytoscape.js'></script>
+  </head>
+
+  <body>
+    <h1>Overlay network with superpeers</h1>
+    <div id='cy'>
+      <script src='main.js'></script>
+    </div>
+    <div id='userSelection'>
+      <p>Enter here the number of peers or superpeers you would like in your network. Default is 13 superpeers with 100 regular peers.</p>
+      <input type='text' id='peerNodes' placeholder='Input number of regular peers'>
+      <input type='text' id='inputText' placeholder='Input number of super peers'>
+      <button type='button' id='submitButton' onclick='makeGraph()'>Update Graph!</button>
+    </div>
+    <div id='userEdits'>
+      <p>Enter here a starting and ending peer node to find the path between.</p>
+      <input type='text' id='startNode' placeholder='Enter starting node'>
+      <input type='text' id='endNode' placeholder='Enter ending node'>
+      <button id='animateButton' onclick='animatePath()'>Find Path!</button>
+    </div>
+  </body>
+</html>
