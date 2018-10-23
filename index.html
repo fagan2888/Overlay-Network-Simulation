@@ -10,7 +10,6 @@
 
   <body>
     <h1>Overlay network with superpeers</h1>
-    <h3>Zoom in and out to see more detail!</h3>
     <div id='cy'>
       <script src='main.js'></script>
     </div>
@@ -21,7 +20,7 @@
       <button type='button' id='submitButton' onclick='makeGraph()'>Update Graph!</button>
     </div>
     <div id='userEdits'>
-      <p>Enter here a starting and ending peer node to find the path between.</p>
+      <p>Enter here a starting and ending peer node to find the path between. Zoom in on graph to see more detail!</p>
       <input type='text' id='startNode' placeholder='Starting node'>
       <input type='text' id='endNode' placeholder='Ending node'>
       <button id='animateButton' onclick='animatePath()'>Find Path!</button>
