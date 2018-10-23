@@ -194,6 +194,47 @@ function getPath() {
   return pathTo;
 }
 
+function getPath_throughSuper() {
+  let pathTo;
+  let sSup;
+  let e1;
+  let e2;
+
+  var startNode = document.getElementById('startNode').value;
+  var endNode = document.getElementById('endNode').value;
+
+  var start = cy.$("#n"+startNode);
+  var end = cy.$("#n"+endNode);
+
+  var nodesPerSupernode = Math.floor(regularNodes / superNodes);
+  var startSuper = Math.floor(startNode / nodesPerSupernode);
+
+  if (startSuper >= superNodes) {
+    startSuper = superNodes - 1;
+  }
+
+  var endSuper = Math.floor(endNode / nodesPerSupernode);
+
+  sSup = cy.$("#s"+startSuper);
+  e1 = cy.$("#edges" + startSuper + "n" + startNode) ;
+
+  if (startSuper != endSuper) {
+
+    var eSup = cy.$("#s"+endSuper);
+    e2 = cy.$("#edges" + startSuper + "s" + endSuper);
+    var e3 = cy.$("#edges" + endSuper + "n" + endNode);
+
+    pathTo = [start, e1, sSup, e2, eSup, e3, end]
+
+  } else {
+    e2 = cy.$("#edges" + startSuper + "n" + endNode);
+
+    pathTo = [start, e1, sSup, e2, end]
+  }
+
+  return pathTo;
+}
+
 function playAnimations(queue, position) {
   if (position < queue.length) {
     queue[position].play().promise().then(() => {
@@ -206,13 +247,15 @@ function playAnimations(queue, position) {
 async function animatePath() {
 
   makeGraph()
-  var path = await getPath();
+  //var path = await getPath();
+  var path = await getPath_throughSuper();
 
   var animations = [];
 
   // forward animation
   for (var i=0; i<path.length; i++) {
     console.log(path[i].data('id'));
+    //console.log(path_two[i].data('id'))
 
     var element = path[i].data('id');
     var ele = "#" + element;
