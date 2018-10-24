@@ -1,5 +1,8 @@
 "use strict";
 
+///////////////////////////////////////////////////
+// Variables
+///////////////////////////////////////////////////
 let regularNodes;
 let superNodes;
 
@@ -36,9 +39,15 @@ var layoutOptions = {
   animate: true
 };
 
+///////////////////////////////////////////////////
+// Functions
+///////////////////////////////////////////////////
+
 function displayGraph(layoutOptions) {
   cy.layout(layoutOptions).run();
 }
+
+/* MAKE GRAPH COMPONENTS */
 
 function makeRegularNodes(nodes) {
   // make nodes
@@ -98,8 +107,6 @@ function makeEdges(regularNodes, superNodes) {
 
   // make edges for regular nodes to supernodes
   var nodesPerSupernode = Math.floor(regularNodes / superNodes);
-  console.log("Nodes per supernode " + nodesPerSupernode);
-
   var nodeCounter = 0;
   for (var i=0; i<superNodes; i++) {
     for (var j=0; j<nodesPerSupernode; j++) {
@@ -153,9 +160,9 @@ function makeEdges(regularNodes, superNodes) {
 
 }
 
+/* SET UP A GRAPH */
+
 function initGraph(regularNodes, superNodes){
-  console.log(regularNodes);
-  console.log(superNodes)
   makeSuperNodes(superNodes);
   makeRegularNodes(regularNodes);
   makeEdges(regularNodes, superNodes);
@@ -164,7 +171,6 @@ function initGraph(regularNodes, superNodes){
 
 function makeGraph() {
   cy.elements().remove();
-  console.log(cy.elements());
   superNodes = document.getElementById('inputText').value;
   regularNodes = document.getElementById('peerNodes').value;
 
@@ -182,7 +188,9 @@ function makeGraph() {
   initGraph(regularNodes, superNodes);
 }
 
-function getPath() {
+/* DISPLAY PATH BEWTEEN NODES */
+
+function getShortestPath() {
   var startNode = document.getElementById('startNode').value;
   var endNode = document.getElementById('endNode').value;
 
@@ -247,9 +255,8 @@ function playAnimations(queue, position) {
 async function animatePath() {
 
   makeGraph()
-  //var path = await getPath();
-  var path = await getPath_throughSuper();
 
+  var path = await getPath_throughSuper();
   var animations = [];
 
   // forward animation
@@ -277,4 +284,5 @@ async function animatePath() {
   playAnimations(animations, 0);
 }
 
+// init graph upon load
 initGraph(100,13);
