@@ -139,9 +139,10 @@ function makeEdges(regularNodes, superNodes) {
 
   // make some edges for regular to regular
   // these should be "random" and connect each peer to ~25% of other peers
+  var randomPeerConnections = regularNodes / 20;
   for (var i=0; i<regularNodes; i++) {
-    var regularPeerConnections = regularNodes * 0.03;
-    for (var j=0; j<regularPeerConnections; j++) {
+    var connections = 0;
+    while (connections < randomPeerConnections) {
       var peer = Math.floor(Math.random()*regularNodes);
       try {
         cy.add({
@@ -152,6 +153,7 @@ function makeEdges(regularNodes, superNodes) {
           },
           group: 'edges'
         });
+        connections += 1;
       } catch (err) {
         console.log("collission for nodes " + i + " and " + j)
       }
