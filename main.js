@@ -144,6 +144,9 @@ function makeEdges(regularNodes, superNodes) {
     var connections = 0;
     while (connections < randomPeerConnections) {
       var peer = Math.floor(Math.random()*regularNodes);
+      if (peer == i) {
+        break;
+      }
       try {
         cy.add({
           data: {
@@ -268,7 +271,6 @@ async function animatePath() {
   // forward animation
   for (var i=0; i<path.length; i++) {
     console.log(path[i].data('id'));
-    //console.log(path_two[i].data('id'))
 
     var element = path[i].data('id');
     var ele = "#" + element;
