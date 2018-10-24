@@ -223,6 +223,10 @@ function getPath_throughSuper() {
 
   var endSuper = Math.floor(endNode / nodesPerSupernode);
 
+  if (endSuper >= superNodes) {
+    endSuper = superNodes - 1;
+  }
+
   sSup = cy.$("#s"+startSuper);
   e1 = cy.$("#edges" + startSuper + "n" + startNode) ;
 
